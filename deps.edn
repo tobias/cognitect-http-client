@@ -4,9 +4,9 @@
 
  :deps
  {org.clojure/core.async         {:mvn/version "1.6.681"}
-  org.eclipse.jetty/jetty-client {:mvn/version "9.4.53.v20231009"}
-  org.eclipse.jetty/jetty-http   {:mvn/version "9.4.53.v20231009"}
-  org.eclipse.jetty/jetty-util   {:mvn/version "9.4.53.v20231009"}}
+  org.eclipse.jetty/jetty-client {:mvn/version "11.0.20"}
+  org.eclipse.jetty/jetty-http   {:mvn/version "11.0.20"}
+  org.eclipse.jetty/jetty-util   {:mvn/version "11.0.20"}}
 
  :aliases
  {:check {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"

@@ -25,16 +25,18 @@
    [org.eclipse.jetty.client.api Request Response Result
                                  Response$CompleteListener Response$HeadersListener Response$ContentListener
                                  Response$FailureListener]
+   [org.eclipse.jetty.client.http HttpClientTransportOverHTTP]
    [org.eclipse.jetty.client.util ByteBufferContentProvider]
    [org.eclipse.jetty.http HttpFields]
+   [org.eclipse.jetty.io ClientConnector]
    [org.eclipse.jetty.util.resource Resource]
-   [org.eclipse.jetty.util.log Log]
-   org.eclipse.jetty.util.ssl.SslContextFactory))
+   #_[org.eclipse.jetty.util.log Log]
+   [org.eclipse.jetty.util.ssl SslContextFactory SslContextFactory$Client]))
 
 (set! *warn-on-reflection* true)
 
 ;; Disable Jetty announce by default
-(defn configure-jetty-announce
+#_(defn configure-jetty-announce
   "Set Jetty announce to false by default unless specified as a system property.
    Jetty defaults this setting is true"
   []
@@ -278,7 +280,8 @@ On error, response map is per cognitect.anomalies"
 (defn ssl-context-factory
   ^SslContextFactory [{:keys [classpath-trust-store trust-store-password trust-store validate-hostnames]
                        :or {validate-hostnames true}}]
-  (let [factory (SslContextFactory. false)]
+  (let [factory (SslContextFactory$Client.)]
+    (.setTrustAll factory false)
     (if validate-hostnames
       (.setEndpointIdentificationAlgorithm factory "HTTPS")
       ;; Default changed in 9.4.15
@@ -322,8 +325,11 @@ On error, response map is per cognitect.anomalies"
            min-threads 8
            pending-ops-limit 64}
     :as   config}]
-  (configure-jetty-announce)
-  (let [jetty-client (doto (HttpClient. (ssl-context-factory config))
+  #_(configure-jetty-announce)
+  (let [client-connector (doto (ClientConnector.)
+                           (.setSslContextFactory (ssl-context-factory config)))
+        http-transport (HttpClientTransportOverHTTP. client-connector)
+        jetty-client (doto (HttpClient. http-transport)
                        (.setFollowRedirects follow-redirects)
                        (.setAddressResolutionTimeout resolve-timeout)
                        (.setConnectTimeout connect-timeout)
