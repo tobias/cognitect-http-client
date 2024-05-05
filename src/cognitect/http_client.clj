@@ -30,19 +30,17 @@
    [org.eclipse.jetty.http HttpFields]
    [org.eclipse.jetty.io ClientConnector]
    [org.eclipse.jetty.util.resource Resource]
-   #_[org.eclipse.jetty.util.log Log]
    [org.eclipse.jetty.util.ssl SslContextFactory SslContextFactory$Client]))
 
 (set! *warn-on-reflection* true)
 
 ;; Disable Jetty announce by default
-#_(defn configure-jetty-announce
+(defn configure-jetty-announce
   "Set Jetty announce to false by default unless specified as a system property.
    Jetty defaults this setting is true"
   []
-  (doto (Log/getProperties)
-    (.setProperty "org.eclipse.jetty.util.log.announce"
-                  (System/getProperty "org.eclipse.jetty.util.log.announce" "false"))))
+  (System/setProperty "org.eclipse.jetty.util.log.announce"
+                      (System/getProperty "org.eclipse.jetty.util.log.announce" "false")))
 
 ;; begin copied from datomic.java.io.bbuf ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defn empty-bbuf
@@ -325,7 +323,7 @@ On error, response map is per cognitect.anomalies"
            min-threads 8
            pending-ops-limit 64}
     :as   config}]
-  #_(configure-jetty-announce)
+  (configure-jetty-announce)
   (let [client-connector (doto (ClientConnector.)
                            (.setSslContextFactory (ssl-context-factory config)))
         http-transport (HttpClientTransportOverHTTP. client-connector)
