@@ -9,6 +9,6 @@
   org.eclipse.jetty/jetty-util   {:mvn/version "11.0.20"}}
 
  :aliases
- {:check {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
-                                        :sha     "0ca84df1357d71429243b99908303f45a934654c"}}
-          :main-opts  ["-m" "clj-check.check"]}}}
+ {:build {:deps       {io.github.clojure/tools.build {:mvn/version "0.10.3"}
+                       slipset/deps-deploy           {:mvn/version "0.2.2"}}
+          :ns-default build}}}
