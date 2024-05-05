@@ -16,15 +16,14 @@ It maintains the same API as com.cognitect/http-client, and only has the
 following changes to work with Jetty 11 instead of Jetty 9:
 
 - it depends on Jetty 11.0.20 instead of 9.4.53.v20231009
-- it no longer suppresses Jetty's announcement in logging, since the mechanism
-  it was using to do that under Jetty 9 no longer exists. You should be able to
-  set the system property `org.eclipse.jetty.util.log.announce` to `false` to
-  get the same behavior.
-
+- it tries to suppress Jetty's announcement in logging by setting the sysprop on
+  `java.lang.System` instead of `org.eclipse.jetty.util.log.Log`, since the latter 
+  no longer exposes a way to access its properties.
+  
 ## Version coordinates 
 
 ```clojure
-org.tcrawley/cognitect-http-client {:mvn/version "1.11.128"}
+org.tcrawley/cognitect-http-client {:mvn/version "1.11.129"}
 ```
 
 ## License 

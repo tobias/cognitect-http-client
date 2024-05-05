@@ -8,7 +8,7 @@
    [deps-deploy.deps-deploy :as dd]))
 
 (def lib 'org.tcrawley/cognitect-http-client)
-(def version "1.11.128")
+(def version "1.11.129")
 (def class-dir "target/classes")
 
 (defn- pom-template
