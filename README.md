@@ -26,6 +26,14 @@ following changes to work with Jetty 11 instead of Jetty 9:
 org.tcrawley/cognitect-http-client {:mvn/version "1.11.129"}
 ```
 
+Note: you will also need to add an exclusion to `com.cognitect.aws/api` to prevent 
+bringing in `com.cognitect/http-client`:
+
+```clojure
+com.cognitect.aws/api {:mvn/version "0.8.692"
+                       :exclusions [com.cognitect/http-client]}
+```
+
 ## License 
 
 Licensed under the Apache License, Version 2.0 (the "License");
