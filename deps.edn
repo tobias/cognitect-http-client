@@ -4,9 +4,9 @@
 
  :deps
  {org.clojure/core.async         {:mvn/version "1.6.681"}
-  org.eclipse.jetty/jetty-client {:mvn/version "11.0.20"}
-  org.eclipse.jetty/jetty-http   {:mvn/version "11.0.20"}
-  org.eclipse.jetty/jetty-util   {:mvn/version "11.0.20"}}
+  org.eclipse.jetty/jetty-client {:mvn/version "11.0.24"}
+  org.eclipse.jetty/jetty-http   {:mvn/version "11.0.24"}
+  org.eclipse.jetty/jetty-util   {:mvn/version "11.0.24"}}
 
  :aliases
  {:build {:deps       {io.github.clojure/tools.build {:mvn/version "0.10.3"}
